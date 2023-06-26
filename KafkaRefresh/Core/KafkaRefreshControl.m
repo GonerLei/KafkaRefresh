@@ -262,7 +262,7 @@ static CGFloat const kStretchOffsetYAxisThreshold = 1.0;
 	if((!self.isRefresh && !self.isAnimating) || self.isHidden) return;
 	if (text) {
 		[self bringSubviewToFront:self.alertLabel];
-		self.alertLabel.text = text;
+		self.alertLabel.text = text == nil ? [KafkaRefreshDefaults standardRefreshDefaults].noMoreText : text;
 		[self.alertLabel startAnimating];
 		@weakify(self);
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ 
@@ -289,7 +289,7 @@ static CGFloat const kStretchOffsetYAxisThreshold = 1.0;
 		}];
 	}
 	[self bringSubviewToFront:self.alertLabel];
-	self.alertLabel.text = text; 
+    self.alertLabel.text = text == nil ? [KafkaRefreshDefaults standardRefreshDefaults].noMoreText : text;
 	if (text) {
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 			 @strongify(self);
